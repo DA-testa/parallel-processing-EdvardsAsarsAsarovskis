@@ -1,31 +1,19 @@
-# python3
-
-def parallel_processing(n, m, data):
-    output = []
-    # TODO: write the function for simulating parallel tasks, 
-    # create the output pairs
-
-    return output
+#Edvards Asars Asarovskis 221RDB328
+from heapq import heappush, heappop
 
 def main():
-    # TODO: create input from keyboard
-    # input consists of two lines
-    # first line - n and m
-    # n - thread count 
-    # m - job count
-    n = 0
-    m = 0
-
-    # second line - data 
-    # data - contains m integers t(i) - the times in seconds it takes any thread to process i-th job
-    data = []
-
-    # TODO: create the function
-    result = parallel_processing(n,m,data)
+    n_workers, n_jobs = map(int, input().split())
+    jobs = list(map(int, input().split()))
+    assert len(jobs) == n_jobs
     
-    # TODO: print out the results, each pair in it's own line
-
-
+    heap = []
+    for i in range(n_workers):
+        heappush(heap, (0, i))
+    
+    for i in range(n_jobs):
+        started_at, worker = heappop(heap)
+        print(worker, started_at)
+        heappush(heap, (started_at + jobs[i], worker))
 
 if __name__ == "__main__":
     main()
